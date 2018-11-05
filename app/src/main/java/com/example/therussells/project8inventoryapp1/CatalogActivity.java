@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.therussells.project8inventoryapp1.data.CarContract;
 import com.example.therussells.project8inventoryapp1.data.CarsDbHelper;
 
 /**
@@ -51,22 +52,24 @@ public class CatalogActivity extends AppCompatActivity {
      * the cars database.
      */
     private void displayDatabaseInfo() {
+
+        displayDatabaseInfo();
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
-                CarsEntry._ID,
-                CarsEntry.COLUMN_CAR_NAME,
-                CarsEntry.COLUMN_CAR_PRICE,
-                CarsEntry.COLUMN_CAR_QUALITY,
-                CarsEntry.COLUMN_SUPPLIER_NAME,
-                CarsEntry.COLUMN_SUPPLIER_PHONE_NUMBER };
+                CarContract.CarsEntry._ID,
+                CarContract.CarsEntry.COLUMN_CAR_NAME,
+                CarContract.CarsEntry.COLUMN_CAR_PRICE,
+                CarContract.CarsEntry.COLUMN_CAR_QUALITY,
+                CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME,
+                CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER };
 
         // Perform a query on the cars table
         Cursor cursor = db.query(
-                CarsEntry.TABLE_NAME,   // The table to query
+                CarContract.CarsEntry.TABLE_NAME,   // The table to query
                 projection,            // The columns to return
                 null,                  // The columns for the WHERE clause
                 null,                  // The values for the WHERE clause
@@ -85,20 +88,20 @@ public class CatalogActivity extends AppCompatActivity {
             // In the while loop below, iterate through the rows of the cursor and display
             // the information from each column in this order.
             displayView.setText("The cars table contains " + cursor.getCount() + " cars.\n\n");
-            displayView.append(CarsEntry._ID + " - " +
-                    CarsEntry.COLUMN_CAR_NAME + " - " +
-                    CarsEntry.COLUMN_CAR_PRICE + " - " +
-                    CarsEntry.COLUMN_CAR_QUALITY + " - " +
-                    CarsEntry.COLUMN_SUPPLIER_NAME + " - " +
-                    CarsEntry.COLUMN_SUPPLIER_PHONE_NUMBER + "\n");
+            displayView.append(CarContract.CarsEntry._ID + " - " +
+                    CarContract.CarsEntry.COLUMN_CAR_NAME + " - " +
+                    CarContract.CarsEntry.COLUMN_CAR_PRICE + " - " +
+                    CarContract.CarsEntry.COLUMN_CAR_QUALITY + " - " +
+                    CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME + " - " +
+                    CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER + "\n");
 
             // Figure out the index of each column
-            int idColumnIndex = cursor.getColumnIndex(CarEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(CarsEntry.COLUMN_CAR_NAME);
-            int priceColumnIndex = cursor.getColumnIndex(CarsEntry.COLUMN_CAR_PRICE);
-            int qualityColumnIndex = cursor.getColumnIndex(CarsEntry.COLUMN_CAR_QUALITY);
-            int supplierNameColumnIndex = cursor.getColumnIndex(CarsEntry.COLUMN_SUPPLIER_NAME);
-            int supplierNumberColumnIndex = cursor.getColumnIndex(CarsEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
+            int idColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry.COLUMN_CAR_NAME);
+            int priceColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry.COLUMN_CAR_PRICE);
+            int qualityColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry.COLUMN_CAR_QUALITY);
+            int supplierNameColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME);
+            int supplierNumberColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER);
 
             // Iterate through all the returned rows in the cursor
             while (cursor.moveToNext()) {
@@ -134,11 +137,11 @@ public class CatalogActivity extends AppCompatActivity {
 
         // Create a ContentValues object where column names are the keys,
         ContentValues values = new ContentValues();
-        values.put(CarsEntry.COLUMN_CAR_NAME, "Honda");
-        values.put(CarsEntry.COLUMN_CAR_PRICE, 30,000);
-        values.put(CarsEntry.COLUMN_CAR_QUALITY, CarsEntry.QUALITY_NEW);
-        values.put(CarEntry.COLUMN_SUPPLIER_NAME, "Honda North America");
-        values.put(CarEntry.COLUMN_SUPPLIER_NUMBER, 1-800-123-4567);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_NAME, "Honda");
+        values.put(CarContract.CarsEntry.COLUMN_CAR_PRICE, 30,000);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_QUALITY, CarContract.CarsEntry.QUALITY_NEW);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME, "Honda North America");
+        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NUMBER, 1-800-123-4567);
 
         // Insert a new row for Honda in the database, returning the ID of that new row.
         // The first argument for db.insert() is the cars table name.
@@ -147,7 +150,7 @@ public class CatalogActivity extends AppCompatActivity {
         // this is set to "null", then the framework will not insert a row when
         // there are no values).
         // The third argument is the ContentValues object containing the info for Toto.
-        long newRowId = db.insert(CarsEntry.TABLE_NAME, null, values);
+        long newRowId = db.insert(CarContract.CarsEntry.TABLE_NAME, null, values);
     }
 
     @Override

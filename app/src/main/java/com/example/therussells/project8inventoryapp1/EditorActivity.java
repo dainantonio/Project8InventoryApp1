@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.therussells.project8inventoryapp1.data.CarContract;
 import com.example.therussells.project8inventoryapp1.data.CarsDbHelper;
 
 /**
@@ -41,7 +42,7 @@ public class EditorActivity {
      * {@link CarsEntry#QUALITY_NEW}, {@link CarsEntry#QUALITY_CERTIFIED_PRE_OWNED}, or
      * {@link CarsEntry#QUALITY_USED}.
      */
-    private int mQuality = CarsEntry.QUALITY_NEW;
+    private int mQuality = CarContract.CarsEntry.QUALITY_NEW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,13 +119,13 @@ public class EditorActivity {
         // Create a ContentValues object where column names are the keys,
         // and pet attributes from the editor are the values.
         ContentValues values = new ContentValues();
-        values.put(PetEntry.COLUMN_PET_NAME, nameString);
-        values.put(PetEntry.COLUMN_PET_BREED, breedString);
-        values.put(PetEntry.COLUMN_PET_GENDER, mGender);
-        values.put(PetEntry.COLUMN_PET_WEIGHT, weight);
+        values.put(CarsEntry.COLUMN_PET_NAME, nameString);
+        values.put(CarsEntry.COLUMN_PET_PRICE, breedString);
+        values.put(CarsEntry.COLUMN_PET_GENDER, mGender);
+        values.put(CarsEntry.COLUMN_PET_WEIGHT, weight);
 
         // Insert a new row for car in the database, returning the ID of that new row.
-        long newRowId = db.insert(CarsEntry.TABLE_NAME, null, values);
+        long newRowId = db.insert(CarContract.CarsEntry.TABLE_NAME, null, values);
 
         // Show a toast message depending on whether or not the insertion was successful
         if (newRowId == -1) {
