@@ -109,13 +109,14 @@ public class CatalogActivity extends AppCompatActivity {
                 String currentPrice = cursor.getString(priceColumnIndex);
                 int currentQuality = cursor.getInt(qualityColumnIndex);
                 int currentSupplierName = cursor.getInt(supplierNameColumnIndex);
-                int currentSupplierNumber = cursor.getInt(supplierNameColumnIndex);
+                int currentSupplierNumber = cursor.getInt(supplierNumberColumnIndex);
                 // Display the values from each column of the current row in the cursor in the TextView
                 displayView.append(("\n" + currentID + " - " +
                         currentName + " - " +
-                        currentBreed + " - " +
-                        currentGender + " - " +
-                        currentWeight));
+                        currentPrice + " - " +
+                        currentQuality + " - " +
+                        currentSupplierName + " - " +
+                        currentSupplierNumber));
             }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
@@ -127,26 +128,26 @@ public class CatalogActivity extends AppCompatActivity {
     /**
      * Helper method to insert hardcoded car data into the database. For debugging purposes only.
      */
-    private void insertPet() {
+    private void insertCars() {
         // Gets the database in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a ContentValues object where column names are the keys,
-        // and Toto's pet attributes are the values.
         ContentValues values = new ContentValues();
-        values.put(PetEntry.COLUMN_PET_NAME, "Toto");
-        values.put(PetEntry.COLUMN_PET_BREED, "Terrier");
-        values.put(PetEntry.COLUMN_PET_GENDER, PetEntry.GENDER_MALE);
-        values.put(PetEntry.COLUMN_PET_WEIGHT, 7);
+        values.put(CarsEntry.COLUMN_CAR_NAME, "Honda");
+        values.put(CarsEntry.COLUMN_CAR_PRICE, 30,000);
+        values.put(CarsEntry.COLUMN_CAR_QUALITY, CarsEntry.QUALITY_NEW);
+        values.put(CarEntry.COLUMN_SUPPLIER_NAME, "Honda North America");
+        values.put(CarEntry.COLUMN_SUPPLIER_NUMBER, 1-800-123-4567);
 
-        // Insert a new row for Toto in the database, returning the ID of that new row.
-        // The first argument for db.insert() is the pets table name.
+        // Insert a new row for Honda in the database, returning the ID of that new row.
+        // The first argument for db.insert() is the cars table name.
         // The second argument provides the name of a column in which the framework
         // can insert NULL in the event that the ContentValues is empty (if
         // this is set to "null", then the framework will not insert a row when
         // there are no values).
         // The third argument is the ContentValues object containing the info for Toto.
-        long newRowId = db.insert(PetEntry.TABLE_NAME, null, values);
+        long newRowId = db.insert(CarsEntry.TABLE_NAME, null, values);
     }
 
     @Override
