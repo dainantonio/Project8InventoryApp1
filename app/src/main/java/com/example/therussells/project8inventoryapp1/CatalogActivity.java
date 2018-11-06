@@ -4,13 +4,14 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
 import com.example.therussells.project8inventoryapp1.data.CarContract;
 import com.example.therussells.project8inventoryapp1.data.CarsDbHelper;
 
@@ -19,6 +20,8 @@ import com.example.therussells.project8inventoryapp1.data.CarsDbHelper;
  */
 
 public class CatalogActivity extends AppCompatActivity {
+    /** Database helper that will provide us access to the database */
+    private CarsDbHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class CatalogActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         displayDatabaseInfo();
+
     }
 
     /**
@@ -55,6 +59,7 @@ public class CatalogActivity extends AppCompatActivity {
 
         displayDatabaseInfo();
         // Create and/or open a database to read from it
+
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
@@ -141,7 +146,7 @@ public class CatalogActivity extends AppCompatActivity {
         values.put(CarContract.CarsEntry.COLUMN_CAR_PRICE, 30,000);
         values.put(CarContract.CarsEntry.COLUMN_CAR_QUALITY, CarContract.CarsEntry.QUALITY_NEW);
         values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME, "Honda North America");
-        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NUMBER, 1-800-123-4567);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER, 1-800-123-4567);
 
         // Insert a new row for Honda in the database, returning the ID of that new row.
         // The first argument for db.insert() is the cars table name.
@@ -167,7 +172,7 @@ public class CatalogActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
-                insertPet();
+                insertCars();
                 displayDatabaseInfo();
                 return true;
             // Respond to a click on the "Delete all entries" menu option
