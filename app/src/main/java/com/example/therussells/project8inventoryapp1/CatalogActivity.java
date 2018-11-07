@@ -148,6 +148,7 @@ public class CatalogActivity extends AppCompatActivity {
         values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME, "Honda North America");
         values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER, 1-800-123-4567);
 
+
         // Insert a new row for Honda in the database, returning the ID of that new row.
         // The first argument for db.insert() is the cars table name.
         // The second argument provides the name of a column in which the framework
@@ -182,6 +183,7 @@ public class CatalogActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }
 

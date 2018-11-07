@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,12 +22,15 @@ import com.example.therussells.project8inventoryapp1.data.CarsDbHelper;
  * Allows user to add a new car to database or edit an existing one.
  */
 
-public class EditorActivity {
+public class EditorActivity  extends AppCompatActivity{
     /** EditText field to enter the car's name */
     private EditText mNameEditText;
 
     /** EditText field to enter the car's price */
     private EditText mPriceEditText;
+
+    /** EditText field to enter the car's quantity */
+    private EditText mQuantityEditText;
 
     /** EditText field to enter the car's suppliername */
     private EditText mSupplierNameEditText;
@@ -37,11 +41,6 @@ public class EditorActivity {
     /** Spinner field to select the car's quality */
     private Spinner mQualitySpinner;
 
-    /**Car Quality
-     * Car Quality. The possible valid values are in the CarContract.java file:
-     * {@link CarsEntry#QUALITY_NEW}, {@link CarsEntry#QUALITY_CERTIFIED_PRE_OWNED}, or
-     * {@link CarsEntry#QUALITY_USED}.
-     */
     private int mQuality = CarContract.CarsEntry.QUALITY_NEW;
 
     @Override
@@ -52,6 +51,7 @@ public class EditorActivity {
         // Find all relevant views that we will need to read user input from
         mNameEditText = (EditText) findViewById(R.id.edit_car_name);
         mPriceEditText = (EditText) findViewById(R.id.edit_car_price);
+        mQuantityEditText = (EditText) findViewById(R.id.edit_car_quantity);
         mSupplierNameEditText = (EditText) findViewById(R.id.edit_car_supplier_name);
         mSupplierPhoneNumberEditText = (EditText) findViewById(R.id.edit_car_supplier_phone_number);
         mQualitySpinner = (Spinner) findViewById(R.id.spinner_quality);
@@ -81,11 +81,11 @@ public class EditorActivity {
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.quality_new))) {
-                        mQuality= CarsEntry.QUALITY_NEW;
+                        mQuality= CarContract.CarsEntry.QUALITY_NEW;
                     } else if (selection.equals(getString(R.string.quality_certified_pre_owned))) {
-                        mQuality= CarsEntry.QUALITY_USED;
+                        mQuality= CarContract.CarsEntry.QUALITY_USED;
                     } else {
-                        mQuality= CarsEntry.QUALITY_CERTIFIED_PRE_OWNED;
+                        mQuality= CarContract.CarsEntry.QUALITY_CERTIFIED_PRE_OWNED;
                     }
                 }
             }
@@ -93,7 +93,7 @@ public class EditorActivity {
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mQuality= CarsEntry.QUALITY_CERTIFIED_PRE_OWNED;
+                mQuality= CarContract.CarsEntry.QUALITY_CERTIFIED_PRE_OWNED;
             }
         });
     }
@@ -105,10 +105,17 @@ public class EditorActivity {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String nameString = mNameEditText.getText().toString().trim();
-        String priceInteger = mPriceEditText.getText().toString().trim();
+
+        String priceString = mPriceEditText.getText().toString().trim();
+        int price = Integer.parseInt(priceString);
+
+        String quantityString = mQuantityEditText.getText().toString().trim();
+        int quantity = Integer.parseInt(quantityString);
+
         String supplierNameString = mSupplierNameEditText.getText().toString().trim();
-        String supplierPhoneNumberInteger = mSupplierPhoneNumberEditText.getText().toString().trim();
-        int weight = Integer.parseInt(weightString);
+
+        String supplierPhoneNumberString = mSupplierPhoneNumberEditText.getText().toString().trim();
+        int supplierPhoneNumber = Integer.parseInt(supplierPhoneNumberString);
 
         // Create database helper
         CarsDbHelper mDbHelper = new CarsDbHelper(this);
@@ -119,10 +126,12 @@ public class EditorActivity {
         // Create a ContentValues object where column names are the keys,
         // and pet attributes from the editor are the values.
         ContentValues values = new ContentValues();
-        values.put(CarsEntry.COLUMN_PET_NAME, nameString);
-        values.put(CarsEntry.COLUMN_PET_PRICE, breedString);
-        values.put(CarsEntry.COLUMN_PET_GENDER, mGender);
-        values.put(CarsEntry.COLUMN_PET_WEIGHT, weight);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_NAME, nameString);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_PRICE, priceString);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_QUANTITY, mQuantityString);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME, mSupplierNameString);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER, mSupplierPhoneNumbeString);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_QUALITYPET_WEIGHT, weight);
 
         // Insert a new row for car in the database, returning the ID of that new row.
         long newRowId = db.insert(CarContract.CarsEntry.TABLE_NAME, null, values);

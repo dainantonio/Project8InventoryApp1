@@ -1,9 +1,9 @@
 package com.example.therussells.project8inventoryapp1.data;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.therussells.project8inventoryapp1.EditorActivity;
 import com.example.therussells.project8inventoryapp1.data.CarContract.CarsEntry;
 
 /**
@@ -25,7 +25,7 @@ public class CarsDbHelper extends SQLiteOpenHelper{
      *
      * @param context of the app
      */
-    public CarsDbHelper(Context context) {
+    public CarsDbHelper(EditorActivity context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -39,6 +39,7 @@ public class CarsDbHelper extends SQLiteOpenHelper{
                 + CarsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + CarsEntry.COLUMN_CAR_NAME + " TEXT NOT NULL, "
                 + CarsEntry.COLUMN_CAR_PRICE + " INTEGER NOT NULL, "
+                + CarsEntry.COLUMN_CAR_QUANTITY + " TEXT NOT NULL, "
                 + CarsEntry.COLUMN_CAR_QUALITY + " TEXT NOT NULL, "
                 + CarsEntry.COLUMN_CAR_SUPPLIER_NAME + " TEXT NOT NULL, "
                 + CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER + " TEXT NOT NULL);";

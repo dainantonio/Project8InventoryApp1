@@ -62,9 +62,17 @@ public final class CarContract {
 
 
         /**
-         * Car supplier name
+         * Car quantity.
          *
          * Type: INTEGER
+         */
+        public final static String COLUMN_CAR_QUANTITY= "quantity";
+
+
+        /**
+         * Car supplier name
+         *
+         * Type: TEXT
          */
         public final static String COLUMN_CAR_SUPPLIER_NAME= "car supplier's name";
 
@@ -72,7 +80,7 @@ public final class CarContract {
         /**
          * Car supplier phone number.
          *
-         * Type: TEXT
+         * Type: INTEGER
          */
         public final static String COLUMN_CAR_SUPPLIER_PHONE_NUMBER= "car supplier's phone number";
 
