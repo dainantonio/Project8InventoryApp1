@@ -54,6 +54,20 @@ public final class CarContract {
         public final static String COLUMN_CAR_NAME ="name";
 
         /**
+         * car quality
+         *
+         * Type: INTEGER
+         */
+        public final static String COLUMN_CAR_QUALITY = "quality";
+
+        /**
+         * Possible values for the car quality.
+         */
+        public static final int QUALITY_NEW = 0;
+        public static final int QUALITY_CERTIFIED_PRE_OWNED = 1;
+        public static final int QUALITY_USED = 2;
+
+        /**
          * Car price.
          *
          * Type: INTEGER
@@ -85,20 +99,6 @@ public final class CarContract {
         public final static String COLUMN_CAR_SUPPLIER_PHONE_NUMBER= "car supplier's phone number";
 
 
-
-        /**
-         * car quality
-         *
-         * Type: INTEGER
-         */
-            public final static String COLUMN_CAR_QUALITY = "quality";
-
-        /**
-         * Possible values for the car quality.
-         */
-        public static final int QUALITY_NEW = 0;
-        public static final int QUALITY_CERTIFIED_PRE_OWNED = 1;
-        public static final int QUALITY_USED = 2;
     }
 
 }

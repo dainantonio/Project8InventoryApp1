@@ -17,17 +17,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/activity_margin"
+    android:padding="16dp"
     tools:context=".EditorActivity">
 
+    <LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!-- Car Brand-->
     <TextView
-        android:layout_width="wrap_content"
+        style="@style/CategoryStyle"
+        android:text="@string/car_make" />
+
+    <!-- Input fields -->
+    <RelativeLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/vehicle_database_manager"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_weight="2">
+
+        <!-- Name field -->
+        <EditText
+            android:id="@+id/edit_car_name"
+            style="@style/EditorFieldStyle"
+            android:hint="@string/car_brand"
+            android:inputType="textCapWords" />
+
+    </RelativeLayout>
+</LinearLayout>
 
     <!-- Quality of the car -->
     <LinearLayout
@@ -36,88 +54,54 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!-- Label -->
-        <TextView
-            android:text="@string/car_quality"
-            style="@style/CategoryStyle" />
+         <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/car_quality" />
 
-        <!-- Input field -->
+
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
             android:orientation="vertical">
 
             <!-- Quality drop-down spinner -->
             <Spinner
                 android:id="@+id/spinner_gender"
-                android:layout_height="48dp"
                 android:layout_width="wrap_content"
-                android:paddingRight="16dp"
+                android:layout_height="48dp"
+                android:paddingEnd="16dp"
                 android:spinnerMode="dropdown"
-                android:paddingEnd="16dp" />
+                tools:ignore="RtlSymmetry" />
         </LinearLayout>
     </LinearLayout>
 
 
-    <!-- Inventory Manager -->
+
+
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!-- Label -->
+        <!-- Car Price-->
         <TextView
-            android:text="@string/inventory_manager"
-             />
+            style="@style/CategoryStyle"
+            android:text="@string/car_price" />
 
-        <!-- Input fields -->
-        <LinearLayout
-            android:layout_height="wrap_content"
+
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="4dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
 
-            <!-- Name field -->
-            <EditText
-                android:id="@+id/edit_car_name"
-                android:hint="@string/car_brand"
-                android:inputType="textCapWords"
-                style="@style/EditorFieldStyle" />
 
-            <!-- Price field -->
             <EditText
                 android:id="@+id/edit_car_price"
+                style="@style/EditorFieldStyle"
                 android:hint="@string/price_tag"
-                android:inputType="textCapWords"
-                style="@style/EditorFieldStyle" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!-- Label -->
-        <TextView
-            android:text="@string/supplier_name"
-            style="@style/CategoryStyle" />
-
-        <!-- Input fields -->
-        <RelativeLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="4dp">
-
-            <!-- Weight field -->
-            <EditText
-                android:id="@+id/edit_car_supplier_name"
-                android:hint="@string/supplier"
-                android:inputType="number"
-                style="@style/EditorFieldStyle" />
+                android:inputType="textCapWords" />
 
         </RelativeLayout>
     </LinearLayout>
@@ -128,25 +112,78 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!-- Label -->
+        <!-- Quantity-->
         <TextView
-            android:text="@string/supplier_contact"
-            style="@style/CategoryStyle" />
+            style="@style/CategoryStyle"
+            android:text="@string/quantity" />
 
-        <!-- Input fields -->
+
         <RelativeLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+
+            <EditText
+                android:id="@+id/edit_car_quantity"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/quantity"
+                android:inputType="textCapWords" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Supplier Name -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/supplier_name" />
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingLeft="4dp"
             android:paddingStart="4dp">
 
-            <!-- Weight field -->
+            <EditText
+                android:id="@+id/edit_car_supplier_name"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/supplier"
+                android:inputType="textCapWords" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Supplier Contact -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/supplier_contact" />
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
             <EditText
                 android:id="@+id/edit_car_supplier_phone_number"
+                style="@style/EditorFieldStyle"
                 android:hint="@string/supplier_phone_number"
-                android:inputType="number"
-                style="@style/EditorFieldStyle" />
+                android:inputType="phone" />
 
         </RelativeLayout>
     </LinearLayout>

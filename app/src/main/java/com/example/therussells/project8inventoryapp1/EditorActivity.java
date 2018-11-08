@@ -124,14 +124,14 @@ public class EditorActivity  extends AppCompatActivity{
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a ContentValues object where column names are the keys,
-        // and pet attributes from the editor are the values.
+        // and car attributes from the editor are the values.
         ContentValues values = new ContentValues();
         values.put(CarContract.CarsEntry.COLUMN_CAR_NAME, nameString);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_QUALITY,quantityString);
         values.put(CarContract.CarsEntry.COLUMN_CAR_PRICE, priceString);
-        values.put(CarContract.CarsEntry.COLUMN_CAR_QUANTITY, mQuantityString);
-        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME, mSupplierNameString);
-        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER, mSupplierPhoneNumbeString);
-        values.put(CarContract.CarsEntry.COLUMN_CAR_QUALITYPET_WEIGHT, weight);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_QUANTITY, quantityString);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME, supplierNameString);
+        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER, supplierPhoneNumberString);
 
         // Insert a new row for car in the database, returning the ID of that new row.
         long newRowId = db.insert(CarContract.CarsEntry.TABLE_NAME, null, values);

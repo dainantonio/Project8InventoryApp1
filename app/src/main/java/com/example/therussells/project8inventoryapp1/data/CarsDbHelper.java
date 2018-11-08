@@ -38,11 +38,11 @@ public class CarsDbHelper extends SQLiteOpenHelper{
         String SQL_CREATE_CARS_TABLE =  "CREATE TABLE " + CarsEntry.TABLE_NAME + " ("
                 + CarsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + CarsEntry.COLUMN_CAR_NAME + " TEXT NOT NULL, "
+                + CarsEntry.COLUMN_CAR_QUALITY + " TEXT NOT NULL, "
                 + CarsEntry.COLUMN_CAR_PRICE + " INTEGER NOT NULL, "
                 + CarsEntry.COLUMN_CAR_QUANTITY + " TEXT NOT NULL, "
-                + CarsEntry.COLUMN_CAR_QUALITY + " TEXT NOT NULL, "
                 + CarsEntry.COLUMN_CAR_SUPPLIER_NAME + " TEXT NOT NULL, "
-                + CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER + " TEXT NOT NULL);";
+                + CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER + " INTEGER NOT NULL);";
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_CARS_TABLE);

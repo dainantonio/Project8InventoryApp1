@@ -67,8 +67,9 @@ public class CatalogActivity extends AppCompatActivity {
         String[] projection = {
                 CarContract.CarsEntry._ID,
                 CarContract.CarsEntry.COLUMN_CAR_NAME,
-                CarContract.CarsEntry.COLUMN_CAR_PRICE,
                 CarContract.CarsEntry.COLUMN_CAR_QUALITY,
+                CarContract.CarsEntry.COLUMN_CAR_PRICE,
+                CarContract.CarsEntry.COLUMN_CAR_QUANTITY,
                 CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME,
                 CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER };
 
@@ -95,8 +96,9 @@ public class CatalogActivity extends AppCompatActivity {
             displayView.setText("The cars table contains " + cursor.getCount() + " cars.\n\n");
             displayView.append(CarContract.CarsEntry._ID + " - " +
                     CarContract.CarsEntry.COLUMN_CAR_NAME + " - " +
-                    CarContract.CarsEntry.COLUMN_CAR_PRICE + " - " +
                     CarContract.CarsEntry.COLUMN_CAR_QUALITY + " - " +
+                    CarContract.CarsEntry.COLUMN_CAR_PRICE + " - " +
+                    CarContract.CarsEntry.COLUMN_CAR_QUANTITY + " - " +
                     CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME + " - " +
                     CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER + "\n");
 
