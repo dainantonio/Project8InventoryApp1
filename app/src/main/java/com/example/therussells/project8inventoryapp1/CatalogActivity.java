@@ -29,7 +29,7 @@ public class CatalogActivity extends AppCompatActivity {
 
 
         // Setup FAB to open EditorActivity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,19 +75,18 @@ public class CatalogActivity extends AppCompatActivity {
         // Perform a query on the product table
         //The single read method uses a Cursor from the database to perform a query on the table to retrieve at least one column of data.
         // Also the method should close the Cursor after it's done reading from it.
-        Cursor cursor = db.query(
+
+
+        TextView displayView = findViewById(R.id.text_view_inventory);
+
+        try (Cursor cursor = db.query(
                 InventoryContract.ProductEntry.TABLE_NAME,   // The table to query
                 projection,            // The columns to return
                 null,                  // The columns for the WHERE clause
                 null,                  // The values for the WHERE clause
                 null,                  // Don't group the rows
                 null,                  // Don't filter by row groups
-                null);                   // The sort order
-
-
-        TextView displayView = (TextView) findViewById(R.id.text_view_inventory);
-
-        try {
+                null)) {
             // Create a header in the Text View that looks like this:
             //
             // The product table contains <number of rows in Cursor> different products.
@@ -134,11 +133,10 @@ public class CatalogActivity extends AppCompatActivity {
                         currentSupplierName + " - " +
                         currentSupplierNumber));
             }
-        } finally {
-            // Always close the cursor when you're done reading from it. This releases all its
-            // resources and makes it invalid.
-            cursor.close();
         }
+        // Always close the cursor when you're done reading from it. This releases all its
+        // resources and makes it invalid.
+
     }
 
     /**

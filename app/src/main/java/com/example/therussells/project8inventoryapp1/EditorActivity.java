@@ -22,23 +22,35 @@ import com.example.therussells.project8inventoryapp1.data.InventoryDbHelper;
  * Allows user to add a new inventory to database or edit an existing one.
  */
 
-public class EditorActivity  extends AppCompatActivity{
-    /** EditText field to enter the product name */
+public class EditorActivity extends AppCompatActivity {
+    /**
+     * EditText field to enter the product name
+     */
     private EditText mNameEditText;
 
-    /** EditText field to enter the price */
+    /**
+     * EditText field to enter the price
+     */
     private EditText mPriceEditText;
 
-    /** EditText field to enter the quantity */
+    /**
+     * EditText field to enter the quantity
+     */
     private EditText mQuantityEditText;
 
-    /** EditText field to enter the suppliername */
+    /**
+     * EditText field to enter the suppliername
+     */
     private EditText mSupplierNameEditText;
 
-    /** EditText field to enter the supplier phone number */
+    /**
+     * EditText field to enter the supplier phone number
+     */
     private EditText mSupplierPhoneNumberEditText;
 
-    /** Spinner field to select the car's quality */
+    /**
+     * Spinner field to select the car's quality
+     */
     private Spinner mQualitySpinner;
 
     private int mQuality = InventoryContract.ProductEntry.QUALITY_NEW;
@@ -49,12 +61,12 @@ public class EditorActivity  extends AppCompatActivity{
         setContentView(R.layout.activity_editor);
 
         // Find all relevant views that we will need to read user input from
-        mNameEditText = (EditText) findViewById(R.id.edit_product_name);
-        mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
-        mQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
-        mSupplierNameEditText = (EditText) findViewById(R.id.edit_product_supplier_name);
-        mSupplierPhoneNumberEditText = (EditText) findViewById(R.id.edit_product_supplier_phone_number);
-        mQualitySpinner = (Spinner) findViewById(R.id.spinner_quality);
+        mNameEditText = findViewById(R.id.edit_product_name);
+        mPriceEditText = findViewById(R.id.edit_product_price);
+        mQuantityEditText = findViewById(R.id.edit_product_quantity);
+        mSupplierNameEditText = findViewById(R.id.edit_product_supplier_name);
+        mSupplierPhoneNumberEditText = findViewById(R.id.edit_product_supplier_phone_number);
+        mQualitySpinner = findViewById(R.id.spinner_quality);
 
         setupSpinner();
     }
@@ -65,7 +77,7 @@ public class EditorActivity  extends AppCompatActivity{
     private void setupSpinner() {
         // Create adapter for spinner. The list options are from the String array it will use
         // the spinner will use the default layout
-        ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter qualitySpinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.array_quality_options, android.R.layout.simple_spinner_item);
 
         // Specify dropdown layout style - simple list view with 1 item per line
@@ -81,10 +93,9 @@ public class EditorActivity  extends AppCompatActivity{
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.product_quality))) {
-                        mQuality= InventoryContract.ProductEntry.QUALITY_NEW;
-                    }
-                     else {
-                        mQuality= InventoryContract.ProductEntry.QUALITY_USED;
+                        mQuality = InventoryContract.ProductEntry.QUALITY_NEW;
+                    } else {
+                        mQuality = InventoryContract.ProductEntry.QUALITY_USED;
                     }
                 }
             }
@@ -92,7 +103,7 @@ public class EditorActivity  extends AppCompatActivity{
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mQuality= InventoryContract.ProductEntry.QUALITY_USED;
+                mQuality = InventoryContract.ProductEntry.QUALITY_USED;
             }
         });
     }
@@ -123,14 +134,14 @@ public class EditorActivity  extends AppCompatActivity{
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a ContentValues object where column names are the keys,
-        // and car attributes from the editor are the values.
+        // and product attributes from the editor are the values.
         ContentValues values = new ContentValues();
         values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME, nameString);
-        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY,qualityString);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY, mQuality);
         values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE, priceString);
-        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY, quantityString);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
         values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME, supplierNameString);
-        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, supplierPhoneNumberString);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, supplierPhoneNumber);
 
         // Insert a new row for car in the database, returning the ID of that new row.
         long newRowId = db.insert(InventoryContract.ProductEntry.TABLE_NAME, null, values);
