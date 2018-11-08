@@ -29,7 +29,7 @@
     <!-- Car Brand-->
     <TextView
         style="@style/CategoryStyle"
-        android:text="@string/car_make" />
+        android:text="@string/product_name" />
 
     <!-- Input fields -->
     <RelativeLayout
@@ -39,15 +39,15 @@
 
         <!-- Name field -->
         <EditText
-            android:id="@+id/edit_car_name"
+            android:id="@+id/edit_product_name"
             style="@style/EditorFieldStyle"
-            android:hint="@string/car_brand"
+            android:hint="@string/hint_product_name"
             android:inputType="textCapWords" />
 
     </RelativeLayout>
 </LinearLayout>
 
-    <!-- Quality of the car -->
+    <!-- Quality of the product -->
     <LinearLayout
         android:id="@+id/container_quality"
         android:layout_width="match_parent"
@@ -56,7 +56,7 @@
 
          <TextView
             style="@style/CategoryStyle"
-            android:text="@string/car_quality" />
+            android:text="@string/product_quality" />
 
 
         <LinearLayout
@@ -67,7 +67,7 @@
 
             <!-- Quality drop-down spinner -->
             <Spinner
-                android:id="@+id/spinner_gender"
+                android:id="@+id/spinner_quality"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:paddingEnd="16dp"
@@ -76,19 +76,16 @@
         </LinearLayout>
     </LinearLayout>
 
-
-
-
     <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!-- Car Price-->
+        <!-- product Price-->
         <TextView
             style="@style/CategoryStyle"
-            android:text="@string/car_price" />
+            android:text="@string/product_price" />
 
 
         <RelativeLayout
@@ -98,9 +95,9 @@
 
 
             <EditText
-                android:id="@+id/edit_car_price"
+                android:id="@+id/edit_product_price"
                 style="@style/EditorFieldStyle"
-                android:hint="@string/price_tag"
+                android:hint="@string/hint_product_price"
                 android:inputType="textCapWords" />
 
         </RelativeLayout>
@@ -123,18 +120,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="2">
 
-
             <EditText
-                android:id="@+id/edit_car_quantity"
+                android:id="@+id/edit_product_quantity"
                 style="@style/EditorFieldStyle"
-                android:hint="@string/quantity"
+                android:hint="@string/hint_quantity"
                 android:inputType="textCapWords" />
 
         </RelativeLayout>
     </LinearLayout>
-
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -154,9 +147,9 @@
             android:paddingStart="4dp">
 
             <EditText
-                android:id="@+id/edit_car_supplier_name"
+                android:id="@+id/edit_product_supplier_name"
                 style="@style/EditorFieldStyle"
-                android:hint="@string/supplier"
+                android:hint="@string/hint_supplier_name"
                 android:inputType="textCapWords" />
 
         </RelativeLayout>
@@ -180,9 +173,9 @@
             android:layout_weight="2">
 
             <EditText
-                android:id="@+id/edit_car_supplier_phone_number"
+                android:id="@+id/edit_product_supplier_phone_number"
                 style="@style/EditorFieldStyle"
-                android:hint="@string/supplier_phone_number"
+                android:hint="@string/hint_supplier_phone_number"
                 android:inputType="phone" />
 
         </RelativeLayout>

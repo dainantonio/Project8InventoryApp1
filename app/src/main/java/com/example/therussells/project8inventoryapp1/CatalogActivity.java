@@ -72,7 +72,9 @@ public class CatalogActivity extends AppCompatActivity {
                 InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME,
                 InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER };
 
-        // Perform a query on the cars table
+        // Perform a query on the product table
+        //The single read method uses a Cursor from the database to perform a query on the table to retrieve at least one column of data.
+        // Also the method should close the Cursor after it's done reading from it.
         Cursor cursor = db.query(
                 InventoryContract.ProductEntry.TABLE_NAME,   // The table to query
                 projection,            // The columns to return
@@ -83,7 +85,7 @@ public class CatalogActivity extends AppCompatActivity {
                 null);                   // The sort order
 
 
-        TextView displayView = (TextView) findViewById(R.id.text_view_product);
+        TextView displayView = (TextView) findViewById(R.id.text_view_inventory);
 
         try {
             // Create a header in the Text View that looks like this:
@@ -119,7 +121,7 @@ public class CatalogActivity extends AppCompatActivity {
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentName = cursor.getString(nameColumnIndex);
                 int currentQuality = cursor.getInt(qualityColumnIndex);
-                String currentPrice = cursor.getString(priceColumnIndex);
+                int currentPrice = cursor.getInt(priceColumnIndex);
                 int currentQuantity = cursor.getInt(quantityColumnIndex);
                 int currentSupplierName = cursor.getInt(supplierNameColumnIndex);
                 int currentSupplierNumber = cursor.getInt(supplierNumberColumnIndex);

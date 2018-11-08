@@ -41,7 +41,7 @@ public class EditorActivity  extends AppCompatActivity{
     /** Spinner field to select the car's quality */
     private Spinner mQualitySpinner;
 
-    private int mQuality = InventoryContract.CarsEntry.QUALITY_NEW;
+    private int mQuality = InventoryContract.ProductEntry.QUALITY_NEW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +49,11 @@ public class EditorActivity  extends AppCompatActivity{
         setContentView(R.layout.activity_editor);
 
         // Find all relevant views that we will need to read user input from
-        mNameEditText = (EditText) findViewById(R.id.edit_car_name);
-        mPriceEditText = (EditText) findViewById(R.id.edit_car_price);
-        mQuantityEditText = (EditText) findViewById(R.id.edit_car_quantity);
-        mSupplierNameEditText = (EditText) findViewById(R.id.edit_car_supplier_name);
-        mSupplierPhoneNumberEditText = (EditText) findViewById(R.id.edit_car_supplier_phone_number);
+        mNameEditText = (EditText) findViewById(R.id.edit_product_name);
+        mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
+        mQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
+        mSupplierNameEditText = (EditText) findViewById(R.id.edit_product_supplier_name);
+        mSupplierPhoneNumberEditText = (EditText) findViewById(R.id.edit_product_supplier_phone_number);
         mQualitySpinner = (Spinner) findViewById(R.id.spinner_quality);
 
         setupSpinner();
@@ -80,12 +80,11 @@ public class EditorActivity  extends AppCompatActivity{
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals(getString(R.string.quality_new))) {
-                        mQuality= InventoryContract.CarsEntry.QUALITY_NEW;
-                    } else if (selection.equals(getString(R.string.quality_certified_pre_owned))) {
-                        mQuality= InventoryContract.CarsEntry.QUALITY_USED;
-                    } else {
-                        mQuality= InventoryContract.CarsEntry.QUALITY_CERTIFIED_PRE_OWNED;
+                    if (selection.equals(getString(R.string.product_quality))) {
+                        mQuality= InventoryContract.ProductEntry.QUALITY_NEW;
+                    }
+                     else {
+                        mQuality= InventoryContract.ProductEntry.QUALITY_USED;
                     }
                 }
             }
@@ -93,15 +92,15 @@ public class EditorActivity  extends AppCompatActivity{
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mQuality= InventoryContract.CarsEntry.QUALITY_CERTIFIED_PRE_OWNED;
+                mQuality= InventoryContract.ProductEntry.QUALITY_USED;
             }
         });
     }
 
     /**
-     * Get user input from editor and save new car into database.
+     * Get user input from editor and save new product into database.
      */
-    private void insertCar() {
+    private void insertProduct() {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String nameString = mNameEditText.getText().toString().trim();
@@ -126,23 +125,23 @@ public class EditorActivity  extends AppCompatActivity{
         // Create a ContentValues object where column names are the keys,
         // and car attributes from the editor are the values.
         ContentValues values = new ContentValues();
-        values.put(InventoryContract.CarsEntry.COLUMN_CAR_NAME, nameString);
-        values.put(InventoryContract.CarsEntry.COLUMN_CAR_QUALITY,quantityString);
-        values.put(InventoryContract.CarsEntry.COLUMN_CAR_PRICE, priceString);
-        values.put(InventoryContract.CarsEntry.COLUMN_CAR_QUANTITY, quantityString);
-        values.put(InventoryContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME, supplierNameString);
-        values.put(InventoryContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER, supplierPhoneNumberString);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME, nameString);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY,qualityString);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE, priceString);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY, quantityString);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME, supplierNameString);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, supplierPhoneNumberString);
 
         // Insert a new row for car in the database, returning the ID of that new row.
-        long newRowId = db.insert(InventoryContract.CarsEntry.TABLE_NAME, null, values);
+        long newRowId = db.insert(InventoryContract.ProductEntry.TABLE_NAME, null, values);
 
         // Show a toast message depending on whether or not the insertion was successful
         if (newRowId == -1) {
             // If the row ID is -1, then there was an error with insertion.
-            Toast.makeText(this, "Error saving car to database", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error saving product to database", Toast.LENGTH_SHORT).show();
         } else {
             // Otherwise, the insertion was successful and we can display a toast with the row ID.
-            Toast.makeText(this, "Car successfully saved to database with with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Product successfully saved to database with with row id: " + newRowId, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -160,8 +159,8 @@ public class EditorActivity  extends AppCompatActivity{
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                // Save pet to database
-                insertCar();
+                // Save procuct to database
+                insertProduct();
                 // Exit activity
                 finish();
                 return true;
