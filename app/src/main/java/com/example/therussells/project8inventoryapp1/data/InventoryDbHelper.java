@@ -3,7 +3,7 @@ package com.example.therussells.project8inventoryapp1.data;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.therussells.project8inventoryapp1.EditorActivity;
+import com.example.therussells.project8inventoryapp1.CatalogActivity;
 
 /**
  * Database helper for Cars app. Manages database creation and version management.
@@ -25,7 +25,7 @@ public class InventoryDbHelper extends SQLiteOpenHelper{
      *
      * @param context of the app
      */
-    public InventoryDbHelper(EditorActivity context) {
+    public InventoryDbHelper(CatalogActivity context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

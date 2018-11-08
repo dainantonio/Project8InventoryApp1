@@ -53,7 +53,7 @@ public class EditorActivity extends AppCompatActivity {
      */
     private Spinner mQualitySpinner;
 
-    private int mQuality = InventoryContract.ProductEntry.QUALITY_NEW;
+    private int mQuality = InventoryContract.ProductEntry.QUALITY_USED;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

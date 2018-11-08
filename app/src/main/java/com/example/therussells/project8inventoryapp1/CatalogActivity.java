@@ -45,7 +45,9 @@ public class CatalogActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         displayDatabaseInfo();
-
+        // To access our database, we instantiate our subclass of SQLiteOpenHelper
+        // and pass the context, which is the current activity.
+        mDbHelper = new InventoryDbHelper(this);
     }
 
     /**
@@ -54,9 +56,7 @@ public class CatalogActivity extends AppCompatActivity {
      */
     private void displayDatabaseInfo() {
 
-        // To access our database, we instantiate our subclass of SQLiteOpenHelper
-        // and pass the context, which is the current activity.
-        mDbHelper = new InventoryDbHelper(this);
+
 
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
@@ -77,16 +77,18 @@ public class CatalogActivity extends AppCompatActivity {
         // Also the method should close the Cursor after it's done reading from it.
 
 
-        TextView displayView = findViewById(R.id.text_view_inventory);
 
-        try (Cursor cursor = db.query(
+
+         Cursor cursor = db.query(
                 InventoryContract.ProductEntry.TABLE_NAME,   // The table to query
                 projection,            // The columns to return
                 null,                  // The columns for the WHERE clause
                 null,                  // The values for the WHERE clause
                 null,                  // Don't group the rows
                 null,                  // Don't filter by row groups
-                null)) {
+                null);               // the sort order
+        TextView displayView = findViewById(R.id.text_view_inventory);
+        try{
             // Create a header in the Text View that looks like this:
             //
             // The product table contains <number of rows in Cursor> different products.
@@ -94,8 +96,11 @@ public class CatalogActivity extends AppCompatActivity {
             //
             // In the while loop below, iterate through the rows of the cursor and display
             // the information from each column in this order.
+
             displayView.setText(String.format("The product table contains %d different products.\n" +
                     "\n", cursor.getCount()));
+
+
             displayView.append(InventoryContract.ProductEntry._ID + " - " +
                     InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME + " - " +
                     InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY + " - " +
@@ -134,9 +139,11 @@ public class CatalogActivity extends AppCompatActivity {
                         currentSupplierNumber));
             }
         }
-        // Always close the cursor when you're done reading from it. This releases all its
-        // resources and makes it invalid.
-
+        finally {
+            // Always close the cursor when you're done reading from it. This releases all its
+            // resources and makes it invalid.
+           cursor.close();
+        }
     }
 
     /**
