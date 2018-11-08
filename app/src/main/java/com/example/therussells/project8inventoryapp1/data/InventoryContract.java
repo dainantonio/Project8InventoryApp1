@@ -24,79 +24,78 @@ import android.provider.BaseColumns;
 /**
  * API Contract for the Cars app.
  */
-public final class CarContract {
+public final class InventoryContract {
 
     // To prevent someone from accidentally instantiating the contract class,
     // give it an empty constructor.
-    private CarContract() {}
+    private InventoryContract() {}
 
     /**
-     * Inner class that defines constant values for the cars database table.
-     * Each entry in the table represents a single car.
+     * Inner class that defines constant values for the database table.
+     * Each entry in the table represents a single product.
      */
-    public static final class CarsEntry implements BaseColumns {
+    public static final class ProductEntry implements BaseColumns {
 
-        /** Name of database table for cars */
-        public final static String TABLE_NAME = "cars";
+        /** Name of database table for product */
+        public final static String TABLE_NAME = "product";
 
         /**
-         * Unique ID number for the car (only for use in the database table).
+         * Unique ID number for the product (only for use in the database table).
          *
          * Type: INTEGER
          */
         public final static String _ID = BaseColumns._ID;
 
         /**
-         * Name of the car.
+         * Name of the product.
          *
          * Type: TEXT
          */
-        public final static String COLUMN_CAR_NAME ="name";
+        public final static String COLUMN_PRODUCT_NAME ="name";
 
         /**
-         * car quality
+         * product quality
          *
          * Type: INTEGER
          */
-        public final static String COLUMN_CAR_QUALITY = "quality";
+        public final static String COLUMN_PRODUCT_QUALITY = "quality";
 
         /**
-         * Possible values for the car quality.
+         * Possible values for the product quality.
          */
         public static final int QUALITY_NEW = 0;
-        public static final int QUALITY_CERTIFIED_PRE_OWNED = 1;
-        public static final int QUALITY_USED = 2;
+        public static final int QUALITY_USED = 1;
 
         /**
-         * Car price.
+         * product price.
          *
          * Type: INTEGER
          */
-        public final static String COLUMN_CAR_PRICE= "price";
+        public final static String COLUMN_PRODUCT_PRICE= "price";
 
 
         /**
-         * Car quantity.
+         * Product quantity.
          *
          * Type: INTEGER
          */
-        public final static String COLUMN_CAR_QUANTITY= "quantity";
+        public final static String COLUMN_PRODUCT_QUANTITY= "quantity";
 
 
         /**
-         * Car supplier name
+         * Product supplier name
          *
          * Type: TEXT
          */
-        public final static String COLUMN_CAR_SUPPLIER_NAME= "car supplier's name";
+        public final static String COLUMN_PRODUCT_SUPPLIER_NAME= " supplier's name";
 
 
         /**
-         * Car supplier phone number.
+         * supplier phone number.
          *
          * Type: INTEGER
          */
-        public final static String COLUMN_CAR_SUPPLIER_PHONE_NUMBER= "car supplier's phone number";
+        public final static String COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER= "supplier's phone number";
 
 
     }

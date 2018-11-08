@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
@@ -12,8 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import com.example.therussells.project8inventoryapp1.data.CarContract;
-import com.example.therussells.project8inventoryapp1.data.CarsDbHelper;
+import com.example.therussells.project8inventoryapp1.data.InventoryContract;
+import com.example.therussells.project8inventoryapp1.data.InventoryDbHelper;
 
 /**
  * Displays list of cars that were entered and stored in the app.
@@ -21,7 +20,7 @@ import com.example.therussells.project8inventoryapp1.data.CarsDbHelper;
 
 public class CatalogActivity extends AppCompatActivity {
     /** Database helper that will provide us access to the database */
-    private CarsDbHelper mDbHelper;
+    private InventoryDbHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +38,7 @@ public class CatalogActivity extends AppCompatActivity {
             }
         });
 
-        // To access our database, we instantiate our subclass of SQLiteOpenHelper
-        // and pass the context, which is the current activity.
-        mDbHelper = new CarsDbHelper(this);
+
     }
 
     @Override
@@ -53,29 +50,31 @@ public class CatalogActivity extends AppCompatActivity {
 
     /**
      * Temporary helper method to display information in the onscreen TextView about the state of
-     * the cars database.
+     * the bookstore database.
      */
     private void displayDatabaseInfo() {
 
-        displayDatabaseInfo();
-        // Create and/or open a database to read from it
+        // To access our database, we instantiate our subclass of SQLiteOpenHelper
+        // and pass the context, which is the current activity.
+        mDbHelper = new InventoryDbHelper(this);
 
+        // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
-                CarContract.CarsEntry._ID,
-                CarContract.CarsEntry.COLUMN_CAR_NAME,
-                CarContract.CarsEntry.COLUMN_CAR_QUALITY,
-                CarContract.CarsEntry.COLUMN_CAR_PRICE,
-                CarContract.CarsEntry.COLUMN_CAR_QUANTITY,
-                CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME,
-                CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER };
+                InventoryContract.ProductEntry._ID,
+                InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME,
+                InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY,
+                InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE,
+                InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY,
+                InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME,
+                InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER };
 
         // Perform a query on the cars table
         Cursor cursor = db.query(
-                CarContract.CarsEntry.TABLE_NAME,   // The table to query
+                InventoryContract.ProductEntry.TABLE_NAME,   // The table to query
                 projection,            // The columns to return
                 null,                  // The columns for the WHERE clause
                 null,                  // The values for the WHERE clause
@@ -83,32 +82,35 @@ public class CatalogActivity extends AppCompatActivity {
                 null,                  // Don't filter by row groups
                 null);                   // The sort order
 
-        TextView displayView = (TextView) findViewById(R.id.text_view_cars);
+
+        TextView displayView = (TextView) findViewById(R.id.text_view_product);
 
         try {
             // Create a header in the Text View that looks like this:
             //
-            // The cars table contains <number of rows in Cursor> cars.
+            // The product table contains <number of rows in Cursor> different products.
             // _id - name - price-quality-supplier name- supplier phone number
             //
             // In the while loop below, iterate through the rows of the cursor and display
             // the information from each column in this order.
-            displayView.setText("The cars table contains " + cursor.getCount() + " cars.\n\n");
-            displayView.append(CarContract.CarsEntry._ID + " - " +
-                    CarContract.CarsEntry.COLUMN_CAR_NAME + " - " +
-                    CarContract.CarsEntry.COLUMN_CAR_QUALITY + " - " +
-                    CarContract.CarsEntry.COLUMN_CAR_PRICE + " - " +
-                    CarContract.CarsEntry.COLUMN_CAR_QUANTITY + " - " +
-                    CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME + " - " +
-                    CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER + "\n");
+            displayView.setText(String.format("The product table contains %d different products.\n" +
+                    "\n", cursor.getCount()));
+            displayView.append(InventoryContract.ProductEntry._ID + " - " +
+                    InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME + " - " +
+                    InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY + " - " +
+                    InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE + " - " +
+                    InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY + " - " +
+                    InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME + " - " +
+                    InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER + "\n");
 
             // Figure out the index of each column
-            int idColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry.COLUMN_CAR_NAME);
-            int priceColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry.COLUMN_CAR_PRICE);
-            int qualityColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry.COLUMN_CAR_QUALITY);
-            int supplierNameColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME);
-            int supplierNumberColumnIndex = cursor.getColumnIndex(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER);
+            int idColumnIndex = cursor.getColumnIndex(InventoryContract.ProductEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME);
+            int qualityColumnIndex = cursor.getColumnIndex(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY);
+            int priceColumnIndex = cursor.getColumnIndex(InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY);
+            int supplierNameColumnIndex = cursor.getColumnIndex(InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
+            int supplierNumberColumnIndex = cursor.getColumnIndex(InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER);
 
             // Iterate through all the returned rows in the cursor
             while (cursor.moveToNext()) {
@@ -116,15 +118,17 @@ public class CatalogActivity extends AppCompatActivity {
                 // at the current row the cursor is on.
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentName = cursor.getString(nameColumnIndex);
-                String currentPrice = cursor.getString(priceColumnIndex);
                 int currentQuality = cursor.getInt(qualityColumnIndex);
+                String currentPrice = cursor.getString(priceColumnIndex);
+                int currentQuantity = cursor.getInt(quantityColumnIndex);
                 int currentSupplierName = cursor.getInt(supplierNameColumnIndex);
                 int currentSupplierNumber = cursor.getInt(supplierNumberColumnIndex);
                 // Display the values from each column of the current row in the cursor in the TextView
                 displayView.append(("\n" + currentID + " - " +
                         currentName + " - " +
+                        currentQuality + " _ " +
                         currentPrice + " - " +
-                        currentQuality + " - " +
+                        currentQuantity + " - " +
                         currentSupplierName + " - " +
                         currentSupplierNumber));
             }
@@ -138,27 +142,28 @@ public class CatalogActivity extends AppCompatActivity {
     /**
      * Helper method to insert hardcoded car data into the database. For debugging purposes only.
      */
-    private void insertCars() {
+    private void insertProduct() {
         // Gets the database in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a ContentValues object where column names are the keys,
         ContentValues values = new ContentValues();
-        values.put(CarContract.CarsEntry.COLUMN_CAR_NAME, "Honda");
-        values.put(CarContract.CarsEntry.COLUMN_CAR_PRICE, 30,000);
-        values.put(CarContract.CarsEntry.COLUMN_CAR_QUALITY, CarContract.CarsEntry.QUALITY_NEW);
-        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME, "Honda North America");
-        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER, 1-800-123-4567);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME, "Kindle Fire");
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY, InventoryContract.ProductEntry.QUALITY_NEW);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE, 100);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY, 20);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME, "Amazon");
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, 1-800-123-4567);
 
 
-        // Insert a new row for Honda in the database, returning the ID of that new row.
-        // The first argument for db.insert() is the cars table name.
+        // Insert a new row for a product in the database, returning the ID of that new row.
+        // The first argument for db.insert() is the product table name.
         // The second argument provides the name of a column in which the framework
         // can insert NULL in the event that the ContentValues is empty (if
         // this is set to "null", then the framework will not insert a row when
         // there are no values).
         // The third argument is the ContentValues object containing the info for Toto.
-        long newRowId = db.insert(CarContract.CarsEntry.TABLE_NAME, null, values);
+        long newRowId = db.insert(InventoryContract.ProductEntry.TABLE_NAME, null, values);
     }
 
     @Override
@@ -175,7 +180,7 @@ public class CatalogActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
-                insertCars();
+                insertProduct();
                 displayDatabaseInfo();
                 return true;
             // Respond to a click on the "Delete all entries" menu option

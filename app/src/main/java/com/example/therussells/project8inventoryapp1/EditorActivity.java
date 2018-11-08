@@ -15,33 +15,33 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.therussells.project8inventoryapp1.data.CarContract;
-import com.example.therussells.project8inventoryapp1.data.CarsDbHelper;
+import com.example.therussells.project8inventoryapp1.data.InventoryContract;
+import com.example.therussells.project8inventoryapp1.data.InventoryDbHelper;
 
 /**
- * Allows user to add a new car to database or edit an existing one.
+ * Allows user to add a new inventory to database or edit an existing one.
  */
 
 public class EditorActivity  extends AppCompatActivity{
-    /** EditText field to enter the car's name */
+    /** EditText field to enter the product name */
     private EditText mNameEditText;
 
-    /** EditText field to enter the car's price */
+    /** EditText field to enter the price */
     private EditText mPriceEditText;
 
-    /** EditText field to enter the car's quantity */
+    /** EditText field to enter the quantity */
     private EditText mQuantityEditText;
 
-    /** EditText field to enter the car's suppliername */
+    /** EditText field to enter the suppliername */
     private EditText mSupplierNameEditText;
 
-    /** EditText field to enter the car's supplier phone number */
+    /** EditText field to enter the supplier phone number */
     private EditText mSupplierPhoneNumberEditText;
 
     /** Spinner field to select the car's quality */
     private Spinner mQualitySpinner;
 
-    private int mQuality = CarContract.CarsEntry.QUALITY_NEW;
+    private int mQuality = InventoryContract.CarsEntry.QUALITY_NEW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +81,11 @@ public class EditorActivity  extends AppCompatActivity{
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.quality_new))) {
-                        mQuality= CarContract.CarsEntry.QUALITY_NEW;
+                        mQuality= InventoryContract.CarsEntry.QUALITY_NEW;
                     } else if (selection.equals(getString(R.string.quality_certified_pre_owned))) {
-                        mQuality= CarContract.CarsEntry.QUALITY_USED;
+                        mQuality= InventoryContract.CarsEntry.QUALITY_USED;
                     } else {
-                        mQuality= CarContract.CarsEntry.QUALITY_CERTIFIED_PRE_OWNED;
+                        mQuality= InventoryContract.CarsEntry.QUALITY_CERTIFIED_PRE_OWNED;
                     }
                 }
             }
@@ -93,7 +93,7 @@ public class EditorActivity  extends AppCompatActivity{
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mQuality= CarContract.CarsEntry.QUALITY_CERTIFIED_PRE_OWNED;
+                mQuality= InventoryContract.CarsEntry.QUALITY_CERTIFIED_PRE_OWNED;
             }
         });
     }
@@ -118,7 +118,7 @@ public class EditorActivity  extends AppCompatActivity{
         int supplierPhoneNumber = Integer.parseInt(supplierPhoneNumberString);
 
         // Create database helper
-        CarsDbHelper mDbHelper = new CarsDbHelper(this);
+        InventoryDbHelper mDbHelper = new InventoryDbHelper(this);
 
         // Gets the database in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -126,15 +126,15 @@ public class EditorActivity  extends AppCompatActivity{
         // Create a ContentValues object where column names are the keys,
         // and car attributes from the editor are the values.
         ContentValues values = new ContentValues();
-        values.put(CarContract.CarsEntry.COLUMN_CAR_NAME, nameString);
-        values.put(CarContract.CarsEntry.COLUMN_CAR_QUALITY,quantityString);
-        values.put(CarContract.CarsEntry.COLUMN_CAR_PRICE, priceString);
-        values.put(CarContract.CarsEntry.COLUMN_CAR_QUANTITY, quantityString);
-        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME, supplierNameString);
-        values.put(CarContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER, supplierPhoneNumberString);
+        values.put(InventoryContract.CarsEntry.COLUMN_CAR_NAME, nameString);
+        values.put(InventoryContract.CarsEntry.COLUMN_CAR_QUALITY,quantityString);
+        values.put(InventoryContract.CarsEntry.COLUMN_CAR_PRICE, priceString);
+        values.put(InventoryContract.CarsEntry.COLUMN_CAR_QUANTITY, quantityString);
+        values.put(InventoryContract.CarsEntry.COLUMN_CAR_SUPPLIER_NAME, supplierNameString);
+        values.put(InventoryContract.CarsEntry.COLUMN_CAR_SUPPLIER_PHONE_NUMBER, supplierPhoneNumberString);
 
         // Insert a new row for car in the database, returning the ID of that new row.
-        long newRowId = db.insert(CarContract.CarsEntry.TABLE_NAME, null, values);
+        long newRowId = db.insert(InventoryContract.CarsEntry.TABLE_NAME, null, values);
 
         // Show a toast message depending on whether or not the insertion was successful
         if (newRowId == -1) {
