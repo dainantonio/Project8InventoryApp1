@@ -38,24 +38,22 @@ public class CatalogActivity extends AppCompatActivity {
             }
         });
 
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        displayDatabaseInfo();
         // To access our database, we instantiate our subclass of SQLiteOpenHelper
         // and pass the context, which is the current activity.
         mDbHelper = new InventoryDbHelper(this);
-    }
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //displayDatabaseInfo();
+    }
     /**
      * Temporary helper method to display information in the onscreen TextView about the state of
      * the bookstore database.
      */
     private void displayDatabaseInfo() {
-
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -82,7 +80,9 @@ public class CatalogActivity extends AppCompatActivity {
                 null,                  // Don't group the rows
                 null,                  // Don't filter by row groups
                 null);               // the sort order
+
         TextView displayView = findViewById(R.id.text_view_inventory);
+
         try{
             // Create a header in the Text View that looks like this:
             //
