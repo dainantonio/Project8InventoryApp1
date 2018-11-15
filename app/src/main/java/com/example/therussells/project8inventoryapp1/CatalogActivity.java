@@ -56,8 +56,6 @@ public class CatalogActivity extends AppCompatActivity {
      */
     private void displayDatabaseInfo() {
 
-
-
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -75,9 +73,6 @@ public class CatalogActivity extends AppCompatActivity {
         // Perform a query on the product table
         //The single read method uses a Cursor from the database to perform a query on the table to retrieve at least one column of data.
         // Also the method should close the Cursor after it's done reading from it.
-
-
-
 
          Cursor cursor = db.query(
                 InventoryContract.ProductEntry.TABLE_NAME,   // The table to query
@@ -97,8 +92,7 @@ public class CatalogActivity extends AppCompatActivity {
             // In the while loop below, iterate through the rows of the cursor and display
             // the information from each column in this order.
 
-            displayView.setText(String.format("The product table contains %d different products.\n" +
-                    "\n", cursor.getCount()));
+            displayView.setText("The product table contains" + cursor.getCount() + "products.\n\n");
 
 
             displayView.append(InventoryContract.ProductEntry._ID + " - " +
@@ -147,7 +141,7 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     /**
-     * Helper method to insert hardcoded car data into the database. For debugging purposes only.
+     * Helper method to insert hardcoded data into the database. For debugging purposes only.
      */
     private void insertProduct() {
         // Gets the database in write mode

@@ -1,5 +1,6 @@
 package com.example.therussells.project8inventoryapp1.data;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -25,7 +26,7 @@ public class InventoryDbHelper extends SQLiteOpenHelper{
      *
      * @param context of the app
      */
-    public InventoryDbHelper(CatalogActivity context) {
+    public InventoryDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -39,9 +40,9 @@ public class InventoryDbHelper extends SQLiteOpenHelper{
         String SQL_CREATE_PRODUCT_TABLE =  "CREATE TABLE " + InventoryContract.ProductEntry.TABLE_NAME + "("
                 + InventoryContract.ProductEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME + "TEXT NOT NULL,"
-                + InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY + "TEXT NOT NULL,"
+                + InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY + "INTEGER TEXT NOT NULL,"
                 + InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE + "INTEGER NOT NULL,"
-                + InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY + "TEXT NOT NULL,"
+                + InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY + "INTEGER NOT NULL,"
                 + InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME + "TEXT NOT NULL,"
                 + InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER + "INTEGER NOT NULL);";
 
