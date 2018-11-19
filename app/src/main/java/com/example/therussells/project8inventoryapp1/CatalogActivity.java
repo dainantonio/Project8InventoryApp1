@@ -11,22 +11,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
 import com.example.therussells.project8inventoryapp1.data.InventoryContract;
 import com.example.therussells.project8inventoryapp1.data.InventoryDbHelper;
 
 /**
- * Displays list of cars that were entered and stored in the app.
+ * Displays list of products that were entered and stored in the app.
  */
 
 public class CatalogActivity extends AppCompatActivity {
-    /** Database helper that will provide us access to the database */
     private InventoryDbHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
-
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -38,22 +37,22 @@ public class CatalogActivity extends AppCompatActivity {
             }
         });
 
-        // To access our database, we instantiate our subclass of SQLiteOpenHelper
-        // and pass the context, which is the current activity.
         mDbHelper = new InventoryDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
     }
+
+    // after the user hits save in the Editor Activity and the app returns to the Catalog Activity, the info is updated and displayed
     @Override
     protected void onStart() {
         super.onStart();
-        //displayDatabaseInfo();
+        displayDatabaseInfo();
     }
+
     /**
      * Temporary helper method to display information in the onscreen TextView about the state of
      * the bookstore database.
      */
     private void displayDatabaseInfo() {
+
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -66,13 +65,14 @@ public class CatalogActivity extends AppCompatActivity {
                 InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE,
                 InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY,
                 InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME,
-                InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER };
+                InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER
+        };
 
         // Perform a query on the product table
         //The single read method uses a Cursor from the database to perform a query on the table to retrieve at least one column of data.
         // Also the method should close the Cursor after it's done reading from it.
 
-         Cursor cursor = db.query(
+        Cursor cursor = db.query(
                 InventoryContract.ProductEntry.TABLE_NAME,   // The table to query
                 projection,            // The columns to return
                 null,                  // The columns for the WHERE clause
@@ -80,21 +80,18 @@ public class CatalogActivity extends AppCompatActivity {
                 null,                  // Don't group the rows
                 null,                  // Don't filter by row groups
                 null);               // the sort order
-
         TextView displayView = findViewById(R.id.text_view_inventory);
 
-        try{
+        try {
             // Create a header in the Text View that looks like this:
             //
             // The product table contains <number of rows in Cursor> different products.
-            // _id - name - price-quality-supplier name- supplier phone number
+            // _id - name - quality- price-quantity-supplier name- supplier phone number
             //
             // In the while loop below, iterate through the rows of the cursor and display
             // the information from each column in this order.
 
-            displayView.setText("The product table contains" + cursor.getCount() + "products.\n\n");
-
-
+            displayView.setText("The product table contains " + cursor.getCount() + " products.\n\n");
             displayView.append(InventoryContract.ProductEntry._ID + " - " +
                     InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME + " - " +
                     InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY + " - " +
@@ -132,14 +129,13 @@ public class CatalogActivity extends AppCompatActivity {
                         currentSupplierName + " - " +
                         currentSupplierNumber));
             }
-        }
-        finally {
+
+        } finally {
             // Always close the cursor when you're done reading from it. This releases all its
             // resources and makes it invalid.
-           cursor.close();
+            cursor.close();
         }
     }
-
     /**
      * Helper method to insert hardcoded data into the database. For debugging purposes only.
      */
@@ -191,7 +187,6 @@ public class CatalogActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }
 

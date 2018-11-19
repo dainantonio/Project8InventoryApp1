@@ -3,8 +3,7 @@ package com.example.therussells.project8inventoryapp1.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.example.therussells.project8inventoryapp1.CatalogActivity;
+import android.util.Log;
 
 /**
  * Database helper for Cars app. Manages database creation and version management.

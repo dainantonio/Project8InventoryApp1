@@ -37,7 +37,7 @@ public final class InventoryContract {
     public static final class ProductEntry implements BaseColumns {
 
         /** Name of database table for product */
-        public final static String TABLE_NAME = "product";
+        public final static String TABLE_NAME = "products";
 
         /**
          * Unique ID number for the product (only for use in the database table).
@@ -65,6 +65,7 @@ public final class InventoryContract {
          */
         public static final int QUALITY_NEW = 0;
         public static final int QUALITY_USED = 1;
+        public static final int QUALITY_REFURBISHED = 2;
 
         /**
          * product price.
@@ -87,7 +88,7 @@ public final class InventoryContract {
          *
          * Type: TEXT
          */
-        public final static String COLUMN_PRODUCT_SUPPLIER_NAME= " supplier's name";
+        public final static String COLUMN_PRODUCT_SUPPLIER_NAME = " suppliername";
 
 
         /**
@@ -95,7 +96,7 @@ public final class InventoryContract {
          *
          * Type: INTEGER
          */
-        public final static String COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER= "supplier's phone number";
+        public final static String COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER = "supplierphonenumber";
 
 
     }

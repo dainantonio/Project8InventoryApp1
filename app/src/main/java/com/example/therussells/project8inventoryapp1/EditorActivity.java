@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +54,7 @@ public class EditorActivity extends AppCompatActivity {
      */
     private Spinner mQualitySpinner;
 
-    private int mQuality = InventoryContract.ProductEntry.QUALITY_USED;
+    private int mQuality = InventoryContract.ProductEntry.QUALITY_NEW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +93,13 @@ public class EditorActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals(getString(R.string.product_quality))) {
-                        mQuality = InventoryContract.ProductEntry.QUALITY_NEW;
-                    } else {
+                    if (selection.equals(getString(R.string.quality_used))) {
                         mQuality = InventoryContract.ProductEntry.QUALITY_USED;
+                    } else if (selection.equals(getString(R.string.quality_refurbished))) {
+                        mQuality = InventoryContract.ProductEntry.QUALITY_REFURBISHED;
+                    } else {
+                        mQuality = InventoryContract.ProductEntry.QUALITY_NEW;
+
                     }
                 }
             }
@@ -103,13 +107,13 @@ public class EditorActivity extends AppCompatActivity {
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mQuality = InventoryContract.ProductEntry.QUALITY_USED;
+                mQuality = InventoryContract.ProductEntry.QUALITY_NEW;
             }
         });
     }
 
     /**
-     * Get user input from editor and save new product into database.
+     * Helper method to insert hardcoded data into the database. For debugging purposes only.
      */
     private void insertProduct() {
         // Read from input fields
@@ -117,10 +121,10 @@ public class EditorActivity extends AppCompatActivity {
         String nameString = mNameEditText.getText().toString().trim();
 
         String priceString = mPriceEditText.getText().toString().trim();
-        int price = Integer.parseInt(priceString);
+        int priceInteger = Integer.parseInt(priceString);
 
         String quantityString = mQuantityEditText.getText().toString().trim();
-        int quantity = Integer.parseInt(quantityString);
+        int quantityInteger = Integer.parseInt(quantityString);
 
         String supplierNameString = mSupplierNameEditText.getText().toString().trim();
 
@@ -138,8 +142,8 @@ public class EditorActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME, nameString);
         values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY, mQuality);
-        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE, priceString);
-        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE, priceInteger);
+        values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY, quantityInteger);
         values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME, supplierNameString);
         values.put(InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, supplierPhoneNumber);
 
@@ -156,11 +160,13 @@ public class EditorActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_editor, menu);
+        Log.d("message", "open EditorActivity");
         return true;
     }
 
@@ -170,9 +176,9 @@ public class EditorActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                // Save procuct to database
+                // Save product to database
                 insertProduct();
-                // Exit activity
+                // Exit activity (returns to Catalog Activity)
                 finish();
                 return true;
             // Respond to a click on the "Delete" menu option
