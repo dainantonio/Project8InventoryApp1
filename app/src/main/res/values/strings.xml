@@ -34,13 +34,13 @@
     <!-- Label for dropdown menu option if the product quality is new [CHAR LIMIT=20] -->
 
     <string name="product_name">Product Name</string>
-    <string name="hint_product_name">Name</string>
+    <string name="hint_product_name">Product</string>
 
     <string name="product_price">Price</string>
-    <string name="hint_product_price">How much?</string>
+    <string name="hint_product_price">Price</string>
 
     <string name="quantity">Quantity</string>
-    <string name="hint_quantity">How many in stock?Quantity</string>
+    <string name="hint_quantity">Quantity</string>
 
 
     <string name="product_quality">Quality</string>
@@ -50,16 +50,19 @@
     <string name="inventory_manager">Inventory Manager</string>
 
     <string name="supplier_name">Supplier Name</string>
-    <string name="hint_supplier_name">Manufacturer or Distributer</string>
+    <string name="hint_supplier_name">Supplier</string>
 
     <string name="supplier">Supplier</string>
     <string name="supplier_contact">Supplier Phone Number</string>
-    <string name="hint_supplier_phone_number">Point of contact</string>
+    <string name="hint_supplier_phone_number">Supplier Contact</string>
     <string name="car_make">Car Make</string>
-
-
-
+    <string name="quality_refurbished">Refurbished</string>
+    <string name="quality_new">New</string>
+    <string name="quality_used">Used</string>
+    <string name="add_product">Add Product</string>
 </resources>
+
+
 
 
 

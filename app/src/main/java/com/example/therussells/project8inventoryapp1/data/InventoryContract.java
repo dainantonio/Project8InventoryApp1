@@ -88,7 +88,7 @@ public final class InventoryContract {
          *
          * Type: TEXT
          */
-        public final static String COLUMN_PRODUCT_SUPPLIER_NAME = " suppliername";
+        public final static String COLUMN_PRODUCT_SUPPLIER_NAME = " supplier_name";
 
 
         /**
@@ -96,7 +96,7 @@ public final class InventoryContract {
          *
          * Type: INTEGER
          */
-        public final static String COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER = "supplierphonenumber";
+        public final static String COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER = "supplier_phone_number";
 
 
     }

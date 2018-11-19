@@ -3,7 +3,6 @@ package com.example.therussells.project8inventoryapp1.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * Database helper for Cars app. Manages database creation and version management.
@@ -36,17 +35,17 @@ public class InventoryDbHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create a String that contains the SQL statement to create the Product table
-        String SQL_CREATE_PRODUCT_TABLE =  "CREATE TABLE " + InventoryContract.ProductEntry.TABLE_NAME + "("
-                + InventoryContract.ProductEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME + "TEXT NOT NULL,"
-                + InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY + "INTEGER TEXT NOT NULL,"
-                + InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE + "INTEGER NOT NULL,"
-                + InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY + "INTEGER NOT NULL,"
-                + InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME + "TEXT NOT NULL,"
-                + InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER + "INTEGER NOT NULL);";
+        String SQL_CREATE_PRODUCTS_TABLE = "CREATE TABLE " + InventoryContract.ProductEntry.TABLE_NAME + " ("
+                + InventoryContract.ProductEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + InventoryContract.ProductEntry.COLUMN_PRODUCT_NAME + " TEXT NOT NULL, "
+                + InventoryContract.ProductEntry.COLUMN_PRODUCT_QUALITY + " INTEGER TEXT NOT NULL, "
+                + InventoryContract.ProductEntry.COLUMN_PRODUCT_PRICE + " INTEGER NOT NULL, "
+                + InventoryContract.ProductEntry.COLUMN_PRODUCT_QUANTITY + " INTEGER NOT NULL,"
+                + InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME + " TEXT NOT NULL, "
+                + InventoryContract.ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER + " INTEGER NOT NULL);";
 
         // Execute the SQL statement
-        db.execSQL(SQL_CREATE_PRODUCT_TABLE);
+        db.execSQL(SQL_CREATE_PRODUCTS_TABLE);
     }
 
     /**
