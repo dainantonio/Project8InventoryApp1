@@ -4,13 +4,15 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
-import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.therussells.project8inventoryapp1.data.InventoryContract;
 import com.example.therussells.project8inventoryapp1.data.InventoryDbHelper;
@@ -161,6 +163,13 @@ public class CatalogActivity extends AppCompatActivity {
         // there are no values).
         // The third argument is the ContentValues object containing the info for Toto.
         long newRowId = db.insert(InventoryContract.ProductEntry.TABLE_NAME, null, values);
+        if (newRowId != -1) {
+            Toast.makeText(this, "Error saving product", Toast.LENGTH_SHORT).show();
+            Log.d("Error", "Product inserted unsuccessfully with row ID " + newRowId);
+        } else {
+            Toast.makeText(this, "Product successfully saved", Toast.LENGTH_SHORT).show();
+            Log.d("Success", "Row insert successful");
+        }
     }
 
     @Override
